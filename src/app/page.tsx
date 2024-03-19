@@ -15,7 +15,8 @@ export default function HomePage() {
         <ul className="list-decimal text-start">
           <li>What is the meaning of life?</li>
           <li>What is the best way to learn a new language?</li>
-          <li>What is the location of Zwolle</li>
+          <li>What is the location of Zwolle?</li>
+          <li>What is best computer game?</li>
         </ul>
       </div>
     </div>
