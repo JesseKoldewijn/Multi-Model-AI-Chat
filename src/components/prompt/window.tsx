@@ -62,7 +62,7 @@ export const PromptWindow = ({ modelName }: PromptWindowProps) => {
         </div>
         <div
           ref={parent}
-          className="relative flex flex-col items-start justify-start gap-4 p-4"
+          className="relative flex max-h-[60vh] flex-col items-start justify-start gap-4 overflow-y-auto overflow-x-hidden p-4"
         >
           {messages && messages.length > 0 ? (
             messages.map((message, index) => (
