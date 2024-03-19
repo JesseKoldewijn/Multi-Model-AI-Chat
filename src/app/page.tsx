@@ -6,12 +6,13 @@ export default function HomePage() {
       <h1 className="mx-auto font-mono text-4xl font-semibold">
         AIcedemy Chat
       </h1>
-      <main className="flex flex-col items-center justify-center gap-10 px-4 py-10 md:flex-row">
-        <PromptWindow modelName="mistral" />
-        <PromptWindow modelName="flan-t5-xxl" />
+      <main className="flex flex-col items-center justify-center gap-10 px-10 py-10 xl:flex-row">
+        <PromptWindow modelName="mistralai/Mixtral-8x7B-Instruct-v0.1" />
+        <PromptWindow modelName="google/flan-t5-xxl" />
+        <PromptWindow modelName="google/gemma-2b" />
       </main>
       <div className="flex flex-col items-center justify-center gap-2">
-        <strong>Examples</strong>
+        <strong>Examples prompts</strong>
         <ul className="list-decimal text-start">
           <li>What is the meaning of life?</li>
           <li>What is the best way to learn a new language?</li>
