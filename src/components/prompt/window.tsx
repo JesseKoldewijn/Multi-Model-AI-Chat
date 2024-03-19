@@ -2,7 +2,7 @@
 
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
-import PromptMessage from "./message";
+import PromptMessage, { PromptMessageSkeleton } from "./message";
 import type { PromptMessageProps, PromptWindowProps } from "./types";
 import { useRef, useState } from "react";
 import { fetchPrompt } from "~/lib/fetchPrompt";
@@ -11,21 +11,31 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 export const PromptWindow = ({ modelName }: PromptWindowProps) => {
   const [parent] = useAutoAnimate();
 
+  const [loading, setLoading] = useState(false);
+
   const [messages, setMessages] = useState<PromptMessageProps[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (loading) return;
+
     if (inputRef.current) {
       const value = inputRef.current.value;
 
       if (value.length < 1) return;
 
+      setLoading(true);
       setMessages((prev) => [
         ...prev,
         {
           sender: "User",
           message: value,
+          timestamp: new Date().toLocaleString(),
+        },
+        {
+          sender: "LLM-loading",
+          message: "Thinking...",
           timestamp: new Date().toLocaleString(),
         },
       ]);
@@ -40,14 +50,23 @@ export const PromptWindow = ({ modelName }: PromptWindowProps) => {
       const data = await res.text();
 
       if (data && data.length > 0) {
-        setMessages((prev) => [
-          ...prev,
-          {
-            sender: "LLM",
-            message: data,
-            timestamp: new Date().toLocaleString(),
-          },
-        ]);
+        setTimeout(() => {
+          setMessages((prev) => {
+            const prevWithoutLoader = prev.filter(
+              (message) => message.sender !== "LLM-loading",
+            );
+
+            return [
+              ...prevWithoutLoader,
+              {
+                sender: "LLM",
+                message: data,
+                timestamp: new Date().toLocaleString(),
+              },
+            ];
+          });
+          setLoading(false);
+        }, 1000);
       }
     }
   };
@@ -65,14 +84,20 @@ export const PromptWindow = ({ modelName }: PromptWindowProps) => {
           className="relative flex max-h-[60vh] flex-col items-start justify-start gap-4 overflow-y-auto overflow-x-hidden p-4"
         >
           {messages && messages.length > 0 ? (
-            messages.map((message, index) => (
-              <PromptMessage
-                key={index}
-                sender={message.sender}
-                message={message.message}
-                timestamp={message.timestamp}
-              />
-            ))
+            messages.map((message, index) => {
+              if (message.sender === "LLM-loading") {
+                return <PromptMessageSkeleton key={index} />;
+              }
+
+              return (
+                <PromptMessage
+                  key={index}
+                  sender={message.sender}
+                  message={message.message}
+                  timestamp={message.timestamp}
+                />
+              );
+            })
           ) : (
             <PromptMessage
               sender={"LLM"}
@@ -91,7 +116,9 @@ export const PromptWindow = ({ modelName }: PromptWindowProps) => {
                 boxShadow: "none",
               }}
             />
-            <Button type="submit">Send</Button>
+            <Button type="submit" disabled={loading}>
+              Send
+            </Button>
           </form>
         </div>
       </div>
