@@ -18,12 +18,15 @@ export const PromptWindow = ({ modelName }: PromptWindowProps) => {
 
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (loading) return;
 
     if (inputRef.current) {
       const value = inputRef.current.value;
 
       if (value.length < 1) return;
+
+      e.currentTarget.reset();
 
       setLoading(true);
       setMessages((prev) => [
@@ -40,7 +43,16 @@ export const PromptWindow = ({ modelName }: PromptWindowProps) => {
         },
       ]);
 
-      const res = await fetchPrompt(modelName, value);
+      const previousMessages = messages.filter(
+        (message) =>
+          message.sender !== "LLM-loading" && message.sender !== "LLM",
+      );
+
+      const totalContext = previousMessages
+        ? previousMessages.map((message) => message.message).join(" ") + value
+        : value;
+
+      const res = await fetchPrompt(modelName, totalContext);
 
       if (!res.ok) {
         console.error(res.text());
