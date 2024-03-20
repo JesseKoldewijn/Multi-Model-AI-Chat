@@ -5,6 +5,9 @@
 await import("./src/env.js");
 
 /** @type {import("next").NextConfig} */
-const config = {};
+const config = {
+  compress: true,
+  transpilePackages: ["@lobehub/icons"],
+};
 
 export default config;
