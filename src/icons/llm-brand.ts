@@ -1,6 +1,6 @@
 import { stringCompare } from "~/lib/stringCompare";
 
-import { Gemma, Google, Mistral, OpenAI, Copilot } from "@lobehub/icons";
+import { Gemma, Google, Mistral, OpenAI } from "@lobehub/icons";
 
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/consistent-indexed-object-style */
@@ -21,9 +21,6 @@ export const llmBrandingIcons = {
   },
   Mistral: {
     Mixtral: Mistral,
-  },
-  microsoft: {
-    codereviewer: Copilot,
   },
 } as const;
 
