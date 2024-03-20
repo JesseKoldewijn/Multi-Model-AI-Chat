@@ -23,7 +23,6 @@ export async function POST(req: Request) {
     // eslint-disable-next-line @typescript-eslint/await-thenable
     const iter = await Hf.textGenerationStream({
       model: modal,
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       inputs: prompt,
       parameters: {
         max_new_tokens: 200,
