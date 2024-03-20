@@ -11,12 +11,12 @@
  * stringCompare("hello", "hell") // 0.8
  */
 export const stringCompare = (a: string, b: string) => {
-  const length = a.length > b.length ? a.length : b.length;
+  const maxLength = Math.max(a.length, b.length);
   let score = 0;
-  for (let i = 0; i < length; i++) {
-    if (a[i] === b[i]) {
+  for (let i = 0; i < maxLength; i++) {
+    if (a.includes(b[i]!) && b.includes(a[i]!)) {
       score++;
     }
   }
-  return score / length;
+  return score / maxLength > 0.6;
 };

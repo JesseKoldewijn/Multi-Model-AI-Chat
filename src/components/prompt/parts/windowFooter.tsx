@@ -1,6 +1,6 @@
-import React, { memo } from "react";
+import { memo } from "react";
 import { Button } from "~/components/ui/button";
-import { Input } from "~/components/ui/input";
+import { Textarea } from "~/components/ui/textarea";
 
 const PromptWindowFooter = memo(
   ({
@@ -9,19 +9,19 @@ const PromptWindowFooter = memo(
     loading,
   }: {
     submitHandler: (e: React.FormEvent<HTMLFormElement>) => void;
-    inputRef: React.RefObject<HTMLInputElement>;
+    inputRef: React.RefObject<HTMLTextAreaElement>;
     loading: boolean;
   }) => {
     return (
       <div className="border-t">
-        <form onSubmit={submitHandler} className="flex border-t p-2">
-          <Input
+        <form
+          onSubmit={submitHandler}
+          className="flex items-end gap-2 border-t p-2"
+        >
+          <Textarea
             ref={inputRef}
-            className="flex-1"
+            className="no-scrollbar h-10 max-h-40 min-h-10 resize-y shadow-none"
             placeholder="Type a message..."
-            style={{
-              boxShadow: "none",
-            }}
           />
           <Button type="submit" disabled={loading}>
             Send

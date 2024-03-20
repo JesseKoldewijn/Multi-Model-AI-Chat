@@ -1,7 +1,6 @@
-import { type IconType } from "@lobehub/icons";
 import { stringCompare } from "~/lib/stringCompare";
 
-import { Gemma, Google, Mistral } from "@lobehub/icons";
+import { Gemma, Google, Mistral, OpenAI, Copilot } from "@lobehub/icons";
 
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/consistent-indexed-object-style */
@@ -13,12 +12,18 @@ type SvgElemProps = {
 type SvgIcon = React.ComponentType<SvgElemProps>;
 
 export const llmBrandingIcons = {
+  default: {
+    default: OpenAI,
+  },
   google: {
     gemma: Gemma,
     flan: Google,
   },
   Mistral: {
     Mixtral: Mistral,
+  },
+  microsoft: {
+    codereviewer: Copilot,
   },
 } as const;
 
@@ -27,30 +32,33 @@ export const findMostSimilarModel = (modelName: string) => {
 
   const brandFind =
     brand &&
-    Object.keys(llmBrandingIcons).find((key) => stringCompare(key, brand));
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    Object.keys(llmBrandingIcons).find((brandKey) =>
+      stringCompare(brandKey, brand),
+    );
+
   const modelFind =
-    brandFind &&
     model &&
-    llmBrandingIcons[brandFind as keyof typeof llmBrandingIcons] &&
     Object.keys(
       llmBrandingIcons[brandFind as keyof typeof llmBrandingIcons],
-    ).find((key) => stringCompare(key, model));
+    ).find((modelKey) => {
+      const globalMatch = stringCompare(modelKey, model);
+      const partialMatch = modelKey.includes(model) || model.includes(modelKey);
+
+      return globalMatch || partialMatch;
+    });
+
+  const modelIcon =
+    modelFind &&
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    (llmBrandingIcons[brandFind as keyof typeof llmBrandingIcons][
+      modelFind as keyof (typeof llmBrandingIcons)[keyof typeof llmBrandingIcons]
+    ] as unknown as SvgIcon | undefined);
 
   return {
     brand: brandFind,
     model: modelFind,
     icon: {
-      brand: llmBrandingIcons[
-        brandFind as keyof typeof llmBrandingIcons
-      ] as unknown as SvgIcon | undefined,
-      model:
-        modelFind &&
-        ((
-          llmBrandingIcons[brandFind as keyof typeof llmBrandingIcons] as {
-            [key: string]: React.ComponentType<IconType>;
-          }
-        )[modelFind] as SvgIcon | undefined),
+      model: modelIcon ?? undefined,
     },
   };
 };

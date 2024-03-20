@@ -1,15 +1,23 @@
 import { PromptWindow } from "~/components/prompt/window";
 
-export default function HomePage() {
+const models = [
+  "microsoft/codereviewer",
+  "mistralai/Mixtral-8x7B-Instruct-v0.1",
+  "google/flan-t5-xxl",
+  "google/gemma-2b",
+  "google/gemma-7b",
+];
+
+const HomePage = () => {
   return (
-    <div className="flex min-h-screen flex-col justify-center">
+    <div className="relative flex min-h-screen flex-col justify-center py-40">
       <h1 className="mx-auto font-mono text-4xl font-semibold">
-        AIcedemy Chat
+        AIcademy Chat
       </h1>
-      <main className="flex flex-col items-center justify-center gap-10 px-10 py-10 xl:flex-row">
-        <PromptWindow modelName="mistralai/Mixtral-8x7B-Instruct-v0.1" />
-        <PromptWindow modelName="google/flan-t5-xxl" />
-        <PromptWindow modelName="google/gemma-2b" />
+      <main className="flex flex-row flex-wrap items-center justify-stretch gap-10 px-10 py-10">
+        {models.map((model) => (
+          <PromptWindow key={model} modelName={model} />
+        ))}
       </main>
       <div className="flex flex-col items-center justify-center gap-2">
         <strong>Examples prompts</strong>
@@ -22,4 +30,5 @@ export default function HomePage() {
       </div>
     </div>
   );
-}
+};
+export default HomePage;

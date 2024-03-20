@@ -12,7 +12,7 @@ export const handleWindowSubmit = async (
     messages,
   }: {
     modelName: string;
-    inputRef: React.RefObject<HTMLInputElement>;
+    inputRef: React.RefObject<HTMLTextAreaElement>;
     loading: boolean;
     setLoading: React.Dispatch<React.SetStateAction<boolean>>;
     setMessages: React.Dispatch<React.SetStateAction<PromptMessageProps[]>>;
@@ -58,8 +58,8 @@ export const handleWindowSubmit = async (
     if (!res.ok) {
       console.error(res.text());
 
-      setMessages((prev) => [
-        ...prev,
+      setMessages(() => [
+        ...previousMessages,
         {
           sender: "LLM-error",
           message: "An error occurred, please try again later.",
