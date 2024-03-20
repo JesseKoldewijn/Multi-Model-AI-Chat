@@ -20,7 +20,7 @@ const PromptWindowFooter = memo(
         >
           <Textarea
             ref={inputRef}
-            className="no-scrollbar h-10 max-h-40 min-h-10 resize-y shadow-none"
+            className="h-10 max-h-40 min-h-10 resize-y shadow-none no-scrollbar"
             placeholder="Type a message..."
           />
           <Button type="submit" disabled={loading}>

@@ -6,8 +6,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "format": "prettier --write .",
+    "lint": "next lint"
   },
   "dependencies": {
     "@formkit/auto-animate": "^0.8.1",
