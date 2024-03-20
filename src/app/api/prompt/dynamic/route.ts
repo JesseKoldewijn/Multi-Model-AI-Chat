@@ -39,7 +39,6 @@ export async function POST(req: Request) {
     // Return a StreamingTextResponse, enabling the client to consume the response
     return new StreamingTextResponse(stream);
   } catch (e) {
-    console.error(e);
     return new Response("Internal Server Error", {
       status: 500,
     });

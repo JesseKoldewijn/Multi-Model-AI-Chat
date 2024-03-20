@@ -22,6 +22,17 @@ const PromptWindowFooter = memo(
             ref={inputRef}
             className="h-10 max-h-40 min-h-10 resize-y shadow-none no-scrollbar"
             placeholder="Type a message..."
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && e.shiftKey) {
+                e.preventDefault();
+                e.currentTarget.value += "\n";
+              } else if (e.key === "Enter") {
+                e.preventDefault();
+                e.currentTarget.form?.dispatchEvent(
+                  new Event("submit", { cancelable: true, bubbles: true }),
+                );
+              }
+            }}
           />
           <Button type="submit" disabled={loading}>
             Send

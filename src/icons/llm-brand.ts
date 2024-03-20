@@ -2,9 +2,6 @@ import { stringCompare } from "~/lib/stringCompare";
 
 import { Gemma, Google, Mistral, OpenAI } from "@lobehub/icons";
 
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/consistent-indexed-object-style */
-
 type SvgElemProps = {
   height: number | string;
   width: number | string;
@@ -36,7 +33,8 @@ export const findMostSimilarModel = (modelName: string) => {
   const modelFind =
     model &&
     Object.keys(
-      llmBrandingIcons[brandFind as keyof typeof llmBrandingIcons],
+      llmBrandingIcons[brandFind as keyof typeof llmBrandingIcons] ??
+        llmBrandingIcons.default,
     ).find((modelKey) => {
       const globalMatch = stringCompare(modelKey, model);
       const partialMatch = modelKey.includes(model) || model.includes(modelKey);

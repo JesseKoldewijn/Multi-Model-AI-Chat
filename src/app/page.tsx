@@ -1,11 +1,6 @@
 import { PromptWindow } from "~/components/prompt/window";
 
-const models = [
-  "mistralai/Mixtral-8x7B-Instruct-v0.1",
-  "google/flan-t5-xxl",
-  "google/gemma-2b",
-  "google/gemma-7b",
-];
+const models = ["google/flan-t5-xxl", "google/gemma-2b", "google/gemma-7b"];
 
 const HomePage = () => {
   return (
