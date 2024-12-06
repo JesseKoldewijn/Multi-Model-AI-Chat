@@ -37,6 +37,7 @@ export async function POST(req: Request) {
 
     // Return a StreamingTextResponse, enabling the client to consume the response
     return new StreamingTextResponse(stream);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {
     return new Response("Internal Server Error", {
       status: 500,

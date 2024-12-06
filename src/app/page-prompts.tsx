@@ -1,7 +1,10 @@
 "use client";
 
-import { ClassValue } from "clsx";
-import { Dispatch, SetStateAction, useState } from "react";
+import type { ClassValue } from "clsx";
+import {
+  // type Dispatch, type SetStateAction,
+  useState,
+} from "react";
 import { PromptWindow } from "~/components/prompt/window";
 import { Button } from "~/components/ui/button";
 import { cn } from "~/lib/utils";
@@ -13,6 +16,7 @@ const defaultModels = [
 ];
 
 const PagePrompts = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [models, setModels] = useState<string[]>(defaultModels);
 
   const gridCols: ClassValue = {
@@ -49,24 +53,24 @@ const PagePrompts = () => {
 };
 export default PagePrompts;
 
-const updateModels = (
-  action: "add" | "remove",
-  model: string,
-  stateCallback: Dispatch<SetStateAction<string[]>>,
-) => {
-  stateCallback((prev) => {
-    if (action === "add") {
-      return [...prev, model];
-    } else {
-      return prev.filter((m) => m !== model);
-    }
-  });
-};
+// const updateModels = (
+//   action: "add" | "remove",
+//   model: string,
+//   stateCallback: Dispatch<SetStateAction<string[]>>,
+// ) => {
+//   stateCallback((prev) => {
+//     if (action === "add") {
+//       return [...prev, model];
+//     } else {
+//       return prev.filter((m) => m !== model);
+//     }
+//   });
+// };
 
-const resetModels = (stateCallback: Dispatch<SetStateAction<string[]>>) => {
-  stateCallback(defaultModels);
-};
+// const resetModels = (stateCallback: Dispatch<SetStateAction<string[]>>) => {
+//   stateCallback(defaultModels);
+// };
 
-const modalsAreUnevenCount = (models: string[]) => {
-  return models.length % 2 !== 0;
-};
+// const modalsAreUnevenCount = (models: string[]) => {
+//   return models.length % 2 !== 0;
+// };
