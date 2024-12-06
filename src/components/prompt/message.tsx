@@ -1,4 +1,5 @@
 import { Skeleton } from "../ui/skeleton";
+import { sanitizePromptResponse } from "./handlers/sanitize";
 import { type PromptMessageProps } from "./types";
 
 const PromptMessage = ({ sender, message, timestamp }: PromptMessageProps) => {
@@ -6,7 +7,7 @@ const PromptMessage = ({ sender, message, timestamp }: PromptMessageProps) => {
     <div className="flex w-full items-start space-x-2" data-tz={timestamp}>
       <div className="w-full rounded-lg bg-white p-3 text-sm">
         <p className="font-semibold">{sender}</p>
-        <p>{message}</p>
+        <p>{sanitizePromptResponse(message)}</p>
       </div>
     </div>
   );
