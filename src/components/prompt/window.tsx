@@ -28,9 +28,12 @@ export const PromptWindow = ({ modelName }: PromptWindowProps) => {
   const [loading, setLoading] = useState(false);
 
   const [messages, setMessages] = useState<PromptMessageProps[]>([]);
-  const inputRef = useRef<HTMLTextAreaElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(
+    null,
+  ) as React.RefObject<HTMLTextAreaElement>;
 
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+    if (!inputRef.current || typeof inputRef.current == "undefined") return;
     void handleWindowSubmit(e, {
       modelName,
       inputRef,

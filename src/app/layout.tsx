@@ -23,12 +23,8 @@ export const metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const cookieJar = cookies();
+const RootLayout = async ({ children }: { children: React.ReactNode }) => {
+  const cookieJar = await cookies();
   const tc = cookieJar.get(themeCookie);
 
   return (
@@ -38,4 +34,5 @@ export default function RootLayout({
       </body>
     </html>
   );
-}
+};
+export default RootLayout;

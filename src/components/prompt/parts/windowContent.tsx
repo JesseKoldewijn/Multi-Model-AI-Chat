@@ -1,3 +1,5 @@
+"use client";
+
 import { memo, type LegacyRef } from "react";
 import PromptMessage, { PromptMessageSkeleton } from "../message";
 import { type PromptMessageProps } from "../types";

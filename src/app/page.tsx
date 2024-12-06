@@ -1,6 +1,4 @@
-import { PromptWindow } from "~/components/prompt/window";
-
-const models = ["google/flan-t5-xxl", "google/gemma-2b", "google/gemma-7b"];
+import PagePrompts from "./page-prompts";
 
 const HomePage = () => {
   return (
@@ -8,18 +6,19 @@ const HomePage = () => {
       <h1 className="mx-auto font-mono text-4xl font-semibold">
         AIcademy Chat
       </h1>
-      <main className="flex flex-row flex-wrap items-center justify-stretch gap-10 px-10 py-10">
-        {models.map((model) => (
-          <PromptWindow key={model} modelName={model} />
-        ))}
-      </main>
-      <div className="flex flex-col items-center justify-center gap-2">
+      <PagePrompts />
+      <div className="flex flex-col items-center justify-center gap-2 px-5 md:px-10">
         <strong>Examples prompts</strong>
-        <ul className="list-decimal text-start">
-          <li>What is the meaning of life?</li>
-          <li>What is the best way to learn a new language?</li>
-          <li>What is the location of Zwolle?</li>
-          <li>What is best computer game?</li>
+        <ul className="flex list-none flex-col items-center justify-center gap-2 text-center">
+          <li>
+            <i>What is the meaning of life?</i>
+          </li>
+          <li>
+            <i>What is the best way to learn a new language?</i>
+          </li>
+          <li>
+            <i>What is best video game?</i>
+          </li>
         </ul>
       </div>
     </div>
